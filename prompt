@@ -1,0 +1,40 @@
+import requests
+import io
+import base64
+from PIL import Image
+
+class TextToImageAgent:
+    def __init__(self, api_url="http://127.0.0.1:7860"): #add the URL for your Automatic1111 server
+        self.api_url = api_url
+
+    def generate_image(self, prompt, steps=25, override_settings=None): #i have set 25 as the default you can send in other values
+        # Constructing the payload
+        payload = {
+            "prompt": prompt,
+            "steps": steps
+        }
+
+        # Adding override settings if provided
+        if override_settings:
+            payload["override_settings"] = override_settings
+
+        # Sending the payload to the API
+        response = requests.post(url=f'{self.api_url}/sdapi/v1/txt2img', json=payload)
+        if response.status_code != 200:
+            raise Exception("Failed to generate image. API responded with: " + response.text)
+
+        # Processing the response
+        response_data = response.json()
+        image_data = base64.b64decode(response_data['images'][0])
+        image = Image.open(io.BytesIO(image_data))
+        
+        # Returning the image object
+        return image
+
+    def save_image(self, image, filename):
+        image.save(filename)
+
+# Example usage you can test the program here
+#agent = TextToImageAgent()
+#image = agent.generate_image("puppy dog", 25)
+#agent.save_image(image, 'output.png')
