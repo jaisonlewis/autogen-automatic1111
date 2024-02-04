@@ -1,2 +1,4 @@
-# autogen-automatic1111
-An autogen agent that connects to automatic 1111
+# autogen-automatic1111-skill
+An autogen agent skill that connects to automatic 1111
+I was trying to find an Autogen code to connect local Automatic1111 to Autogen Studio, but didn't find one, so I made one myself. Right now, it's a very basic code. You can only send a number of steps and the prompt. However, I plan to improve this with a negative prompt and a few other variables. I will possibly do this with Comfy UI as well, but for now, I am using Automatic. Remember to "set  VARNAME=--api" while starting Automatic 1111 to use this skill.
+Also, set up your automatic 1111 with a basic flow, put in the negative prompt, and do other things needed to get you a favorable outcome. This autogen agent skill only sends a prompt and steps. Once set you don't need the web interface to interact with the automatic1111 server. Autogen should create the output and fetch it directly.
